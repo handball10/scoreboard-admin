@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
-import './App.css';
+import './App.scss';
 import { Goal } from './features/goal/Goal';
 import { Time } from './features/time/Time';
 import { Penalties } from './features/penalties/Penalties';
