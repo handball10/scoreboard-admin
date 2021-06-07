@@ -1,10 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import {
-    TEAM_HOME,
-    TEAM_AWAY
-} from '../../constants/constants';
-
 export const STATUS = {
     RUNNING: 'running',
     STOPPED: 'stopped'

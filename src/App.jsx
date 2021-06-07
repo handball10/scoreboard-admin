@@ -14,7 +14,8 @@ import { CommandLine } from './features/commandLine/CommandLine';
 import { CommandLog } from './features/commandLog/CommandLog';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import { GamePanel } from './components/gamePanel/GamePanel';
-import { TeamSettings } from './features/teamInfo/TeamSetting';
+import { TeamSettings } from './features/gameSettings/GameData';
+import { GameSettings } from './features/gameSettings/GameSettings';
 
 function App() {
   return (
@@ -27,16 +28,17 @@ function App() {
           <TabList>
             <Tab>SCOREBOARD</Tab>
             <Tab>CONFIG</Tab>
+            <Tab>ADVERTISING</Tab>
           </TabList>
 
           <TabPanel>
             <GamePanel />
           </TabPanel>
           <TabPanel>
-            <div className="container p-5">
-              <h2>Config</h2>
-              <TeamSettings />
-            </div>
+            <GameSettings />
+          </TabPanel>
+          <TabPanel>
+            <div>Advertising</div>
           </TabPanel>
         </Tabs>
       </div>
