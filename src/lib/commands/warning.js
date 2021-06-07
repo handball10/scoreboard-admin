@@ -7,32 +7,21 @@ import {
     isNumberValue,
     isOfficialPrefix
 } from '../commandLineHelper';
+
 import AbstractCommand from './abstractCommand';
 import { store } from '../../app/store';
 
-import {
-    increase,
-    decrease,
-} from '../../features/goal/goalSlice';
-
-import {
-    selectPersonInfoByNumber,
-    changePlayerProperty
-} from '../../features/teamInfo/teamInfoSlice';
-
-import {
-    createNotification
-} from '../../features/gameEvent/gameEventSlice';
-
 import { LOG_TYPES, PLAYER_PROPERTIES } from '../../constants/constants';
-import { parse } from 'uuid';
-import { createGoalNotification } from '../helper/notificationFactory';
+import { createWarningNotification } from '../helper/notificationFactory';
+import { changePlayerProperty, selectPersonInfoByNumber } from '../../features/teamInfo/teamInfoSlice';
+import { addPenalty } from '../../features/penalties/penaltySlice';
+import { createNotification } from '../../features/gameEvent/gameEventSlice';
 
-export default class GoalsCommand extends AbstractCommand {
+export default class WarningCommand extends AbstractCommand {
 
-    static command = 'g';
+    static command = 'y';
 
-    parserRegex = /(?<team>\W?[hg])?(?<number>\W?[0-9a-d]+)?(?<modifier>\W?[\-\+])?/;
+    parserRegex = /(?<team>\W?[hg])?(?<number>\W?[0-9a-d]+)?/;
 
     constructor() {
         super();
@@ -51,25 +40,14 @@ export default class GoalsCommand extends AbstractCommand {
             return;
         }
 
-        const quantifierFunction = (
-            typeof parsedInput.modifier === 'undefined' || isIncreaseModifier(parsedInput.modifier)
-        ) 
-            ? increase 
-            : decrease;
+        if (!isNumberValue(parsedInput.number)) {
+            this.log({
+                message: 'Invalid number for player!',
+                type: LOG_TYPES.ERROR
+            });
 
-        const quantifierVerb = (
-            typeof parsedInput.modifier === 'undefined' || isIncreaseModifier(parsedInput.modifier)
-        ) 
-            ? 'Added' 
-            : 'Removed';
-
-        store.dispatch(
-            quantifierFunction(getTeamByModifier(parsedInput.team))
-        );
-
-        this.log({
-            message: `${quantifierVerb} goal for team ${getTeamByModifier(parsedInput.team)}`
-        });
+            return;
+        }
 
         if (isNumberValue(parsedInput.number) || isOfficialPrefix(parsedInput.number)) {
             const notificationInfo = selectPersonInfoByNumber(getTeamByModifier(parsedInput.team), parsedInput.number)(store.getState());
@@ -85,10 +63,10 @@ export default class GoalsCommand extends AbstractCommand {
 
             store.dispatch(
                 createNotification(
-                    createGoalNotification({
+                    createWarningNotification({
                         team: notificationInfo.team,
                         player: notificationInfo.player,
-                        quantity: notificationInfo.player.goals + 1
+                        quantity: notificationInfo.player.warning + 1
                     })
                 )
             );
@@ -97,22 +75,26 @@ export default class GoalsCommand extends AbstractCommand {
                 changePlayerProperty({
                     team: getTeamByModifier(parsedInput.team),
                     person: parsedInput.number,
-                    key: PLAYER_PROPERTIES.GOAL,
-                    value: notificationInfo.player.goals + 1
+                    key: PLAYER_PROPERTIES.WARNING,
+                    value: notificationInfo.player.warning + 1
                 })
             );
 
+            this.log({
+                message: `Added yellow card for team ${getTeamByModifier(parsedInput.team)}`
+            });
+
             // create notification
             this.log({
-                message: `Added notification for player`
+                message: `Added notification for player ${parsedInput.number}!`
             });
         }
     }
 
     static register() {
         return {
-            handler: GoalsCommand,
-            command: GoalsCommand.command
+            handler: WarningCommand,
+            command: WarningCommand.command
         }
     }
 }

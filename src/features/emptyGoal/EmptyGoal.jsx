@@ -33,13 +33,11 @@ export function EmptyGoal() {
         <div className="empty-goal">
             <div className="home">
                 <button className={buttonHomeClasses} onClick={() => dispatch(toggleEmptyGoal(TEAM_HOME))} style={{ width: '100%' }}>
-                    {/* {emptyGoalHome ? 'Disable' : 'Enable'} Home     */}
                     Home
                 </button>
             </div>
             <div className="away">
                 <button className={buttonAwayClasses} onClick={() => dispatch(toggleEmptyGoal(TEAM_AWAY))} style={{ width: '100%' }}>
-                    {/* {emptyGoalAway ? 'Disable' : 'Enable'} Away */}
                     Away
                 </button>
             </div>

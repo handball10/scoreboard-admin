@@ -1,9 +1,15 @@
 import GoalsCommand from './commands/goals';
+import PenaltyCommand from './commands/penalty';
+import RedCardCommand from './commands/redCard';
 import TimeCommand from './commands/time';
+import WarningCommand from './commands/warning';
 
 const commandsCollection = [
     GoalsCommand,
-    TimeCommand
+    TimeCommand,
+    PenaltyCommand,
+    WarningCommand,
+    RedCardCommand
 ];
 
 class CommandHandler {

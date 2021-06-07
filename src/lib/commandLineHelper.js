@@ -40,12 +40,12 @@ export const isTeamModifierHome = input => input === TEAM_MODIFIER_HOME;
 export const isTeamModifierAway = input => input === TEAM_MODIFIER_AWAY;
 export const getTeamByModifier = input => TEAM_MODIFIER_MAP[input];
 
-export const isNumberValue = input => !isNaN(input);
+export const isNumberValue = input => input && !isNaN(input);
 export const getNumberValue = input => parseInt(input);
 
 export const isTimeStartModifier = input => input === TIME_START_MODIFIER;
 export const isTimeStopModifier = input => input === TIME_STOP_MODIFIER;
 
 // just check length as regex filters characters
-export const isOfficialPrefix = input => input.length === 1;
+export const isOfficialPrefix = input => input && input.length === 1;
 

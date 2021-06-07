@@ -4,24 +4,24 @@ import {
     isQuantityModifier,
     isTeamModifier,
     parseInputByRegex,
-    isNumberValue
+    isNumberValue,
+    isOfficialPrefix
 } from '../commandLineHelper';
 
 import AbstractCommand from './abstractCommand';
 import { store } from '../../app/store';
 
-import {
-    increase,
-    decrease,
-} from '../../features/p/goalSlice';
+import { LOG_TYPES, PLAYER_PROPERTIES } from '../../constants/constants';
+import { createPenaltyNotification } from '../helper/notificationFactory';
+import { changePlayerProperty, selectPersonInfoByNumber } from '../../features/teamInfo/teamInfoSlice';
+import { addPenalty } from '../../features/penalties/penaltySlice';
+import { createNotification } from '../../features/gameEvent/gameEventSlice';
 
-import { LOG_TYPES } from '../../constants/constants';
+export default class PenaltyCommand extends AbstractCommand {
 
-export default class GoalsCommand extends AbstractCommand {
+    static command = 'p';
 
-    static command = 'g';
-
-    parserRegex = /(?<team>\W?[hg])?(?<number>\W?[0-9]+)?(?<modifier>\W?[\-\+])?/;
+    parserRegex = /(?<team>\W?[hg])?(?<number>\W?[0-9a-d]+)?/;
 
     constructor() {
         super();
@@ -40,38 +40,54 @@ export default class GoalsCommand extends AbstractCommand {
             return;
         }
 
-        const quantifierFunction = (
-            typeof parsedInput.modifier === 'undefined' || isIncreaseModifier(parsedInput.modifier)
-        ) 
-            ? increase 
-            : decrease;
-
-        const quantifierVerb = (
-            typeof parsedInput.modifier === 'undefined' || isIncreaseModifier(parsedInput.modifier)
-        ) 
-            ? 'Added' 
-            : 'Removed';
-
-        store.dispatch(
-            quantifierFunction(getTeamByModifier(parsedInput.team))
-        );
+        store.dispatch(addPenalty(getTeamByModifier(parsedInput.team)));
 
         this.log({
-            message: `${quantifierVerb} goal for team ${getTeamByModifier(parsedInput.team)}`
+            message: `Added time penalty for team ${getTeamByModifier(parsedInput.team)}`
         });
 
-        if (isNumberValue(parsedInput.number)) {
+        if (isNumberValue(parsedInput.number) || isOfficialPrefix(parsedInput.number)) {
+            const notificationInfo = selectPersonInfoByNumber(getTeamByModifier(parsedInput.team), parsedInput.number)(store.getState());
+
+            if (!notificationInfo.player) {
+                this.log({
+                    type: LOG_TYPES.ERROR,
+                    message: `Player with number ${parsedInput.number} has not been found!`
+                });
+
+                return;
+            }
+
+            store.dispatch(
+                createNotification(
+                    createPenaltyNotification({
+                        team: notificationInfo.team,
+                        player: notificationInfo.player,
+                        quantity: notificationInfo.player.timePenalty + 1
+                    })
+                )
+            );
+
+            store.dispatch(
+                changePlayerProperty({
+                    team: getTeamByModifier(parsedInput.team),
+                    person: parsedInput.number,
+                    key: PLAYER_PROPERTIES.PENALTY,
+                    value: notificationInfo.player.timePenalty + 1
+                })
+            );
+
             // create notification
             this.log({
-                message: `Added notification for player`
+                message: `Added notification for player ${parsedInput.number}!`
             });
         }
     }
 
     static register() {
         return {
-            handler: GoalsCommand,
-            command: GoalsCommand.command
+            handler: PenaltyCommand,
+            command: PenaltyCommand.command
         }
     }
 }

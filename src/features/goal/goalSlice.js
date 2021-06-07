@@ -25,7 +25,9 @@ export const goalSlice = createSlice({
             ); 
         },
         decrease: (state, action) => {
-            state[action.payload] -= 1;
+            if (state[action.payload] - 1 >= 0) {
+                state[action.payload] -= 1;
+            }
 
             websocketApi.sendPartialEvent(
                 'goals',

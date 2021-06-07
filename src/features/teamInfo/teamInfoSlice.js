@@ -1,8 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { act } from 'react-dom/test-utils';
-
-import { v4 as uuidv4 } from 'uuid';
-
 import {
     TEAM_HOME,
     TEAM_AWAY
@@ -109,6 +105,11 @@ export const teamInfotSlice = createSlice({
                 ...state[ TEAM_AWAY ],
                 ...payload.data[ TEAM_AWAY ]
             };
+
+            websocketApi.sendPartialEvent(
+                'teams',
+                { ...state }
+            );
         }
     }
 });
