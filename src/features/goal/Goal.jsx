@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import './goal.scss';
+
 
 import {
     TEAM_HOME,
@@ -20,15 +22,16 @@ export function Goal() {
 
     return (
         <div className="goals">
-            <div className="home">
-                {goals[TEAM_HOME]}
-                <button onClick={() => dispatch(increase(TEAM_HOME))}>+ Home</button>
-                <button onClick={() => dispatch(decrease(TEAM_HOME))}>- Home</button>
+            <div className="controls home mr-4">
+                <button onClick={() => dispatch(increase(TEAM_HOME))} className="button is-success is-outlined mb-1">+</button>
+                <button onClick={() => dispatch(decrease(TEAM_HOME))} className="button is-danger is-outlined">-</button>
             </div>
-            <div className="away">
-                {goals[TEAM_AWAY]}
-                <button onClick={() => dispatch(increase(TEAM_AWAY))}>+ Away</button>
-                <button onClick={() => dispatch(decrease(TEAM_AWAY))}>- Away</button>
+            <div className="display">
+                <span>{goals[TEAM_HOME]}:{goals[TEAM_AWAY]}</span>
+            </div>
+            <div className="controls away ml-4">
+                <button onClick={() => dispatch(increase(TEAM_AWAY))} className="button is-success is-outlined mb-1">+</button>
+                <button onClick={() => dispatch(decrease(TEAM_AWAY))} className="button is-danger is-outlined">-</button>
             </div>
         </div>
     )

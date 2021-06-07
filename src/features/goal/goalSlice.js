@@ -19,7 +19,6 @@ export const goalSlice = createSlice({
     reducers: {
         increase: (state, action) => { 
             state[action.payload] += 1;
-            console.log(action.payload);
             websocketApi.sendPartialEvent(
                 'goals',
                 { ...state }

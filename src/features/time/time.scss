@@ -1,0 +1,24 @@
+@import '../../scss/colors.scss';
+
+.time {
+    display: flex;
+    flex-direction: column;
+
+    > * {
+        text-align: center;
+    }
+
+    .display {
+        font-size: 2.5rem;
+        color: $orange-web;
+        line-height: 2rem;
+    }
+    .state {
+        text-align: center;
+        color: $platinum;
+    }
+    .controls {
+        display: flex;
+        justify-content: center;
+    }
+}

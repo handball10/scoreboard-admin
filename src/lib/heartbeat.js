@@ -1,5 +1,4 @@
 import { store } from '../app/store';
-import { useSelector } from 'react-redux';
 
 import websocketApi from '../lib/websocket';
 
@@ -20,7 +19,9 @@ const heartbeatFunction = () => {
     actions.forEach(store.dispatch);
 
     if (actions.length > 0) {
-        websocketApi.send(store.getState());
+        // remove logs
+        const { logs, ...gameState } = store.getState();
+        websocketApi.send(gameState);
     }
 }
 

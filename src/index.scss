@@ -1,0 +1,22 @@
+@import './scss/colors.scss';
+
+html { height: 100%; }
+
+body {
+    // font-family: 'Helvetica Neue', Helvetica, Arial;
+    // padding: 0;
+    // background: $oxford-blue;
+    color: $platinum;
+    margin: 0;
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+#root {
+    height: inherit;
+}
+
+input, textarea {
+    background: $bulmaBackground!important;
+    color: $platinum!important;
+}

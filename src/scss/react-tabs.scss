@@ -1,0 +1,82 @@
+.react-tabs {
+    -webkit-tap-highlight-color: transparent;
+    align-items: stretch;
+    display: flex;
+    font-size: 15px;
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: column;
+    
+    &__tab-list {
+        flex-grow: 1;
+        flex-shrink: 0;
+        justify-content: flex-start;
+        border-bottom-width: 2px;
+        align-items: center;
+        border-bottom-color: #5e6d6f;
+        border-bottom-style: solid;
+        display: flex;
+    }
+    
+    &__tab {
+        // display: block;
+        // border: 1px solid transparent;
+        // border-bottom: none;
+        // bottom: -1px;
+        // position: relative;
+        // list-style: none;
+        // padding: 6px 12px;
+        cursor: pointer;
+        border-bottom-width: 2px;
+        margin-bottom: -2px;
+        color: #fff;
+        padding: .5em 1em;
+        vertical-align: top;
+        justify-content: center;
+        align-items: center;
+        border-bottom-color: #5e6d6f;
+        border-bottom-style: solid;
+        display: flex;
+        text-decoration: none;
+        transition: all 200ms ease;
+        
+        &--selected {
+            border-bottom-color: #1abc9c;
+            color: #1abc9c;
+        }
+        
+        &--disabled {
+            color: GrayText;
+            cursor: default;
+        }
+
+        &:hover {
+            border-bottom-color: #f2f2f2;
+            color: #f2f2f2;
+        }
+        
+        // &:focus {
+        //     box-shadow: 0 0 5px hsl(208, 99%, 50%);
+        //     border-color: hsl(208, 99%, 50%);
+        //     outline: none;
+            
+        //     &:after {
+        //         content: "";
+        //         position: absolute;
+        //         height: 5px;
+        //         left: -4px;
+        //         right: -4px;
+        //         bottom: -5px;
+        //         background: #fff;
+        //     }
+        // }
+    }
+    
+    &__tab-panel {
+        display: none;
+        
+        &--selected {
+            display: block;
+        }
+    }
+}

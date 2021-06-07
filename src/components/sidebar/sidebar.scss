@@ -1,0 +1,17 @@
+@import '../../scss/colors.scss';
+
+.sidebar {
+    // background: $oxford-blue;
+    // box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.88);
+    z-index: 2;
+
+    &.left {
+        grid-area: 1 / 1 / 4 / 1;
+        // grid-column: left;
+        // grid-row: main;
+    }
+
+    &.right {
+        grid-area: 1 / right / 4 / right;
+    }
+}

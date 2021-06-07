@@ -1,0 +1,19 @@
+@import '../../scss/colors.scss';
+
+.goals {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .display {
+        font-size: 6rem;
+        color: $harvest-gold;
+        line-height: 6rem;
+    }
+
+    .controls {
+        display: flex;
+        flex-direction: column;
+    }
+}

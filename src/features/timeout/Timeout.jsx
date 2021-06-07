@@ -19,10 +19,10 @@ export function TimeOut() {
     // const timeoutButtonClasses = class
 
     return (
-        <div className="timeout">
-            <button onClick={() => dispatch(toggleTimeout(TIMEOUT_TYPES.TIMEOUT))} className="start">Timeout</button>
-            <button onClick={() => dispatch(toggleTimeout(TIMEOUT_TYPES.HALFTIME))} className="stop">Halftime</button>
-            <button onClick={() => dispatch(toggleTimeout(TIMEOUT_TYPES.GAMEEND))} className="stop">Gameend</button>
+        <div className="timeout" style={{display: 'flex', flexDirection: 'column'}}>
+            <button className="button is-outlined is-success mb-1" onClick={() => dispatch(toggleTimeout(TIMEOUT_TYPES.TIMEOUT))}>Timeout</button>
+            <button className="button is-outlined is-primary mb-1" onClick={() => dispatch(toggleTimeout(TIMEOUT_TYPES.HALFTIME))}>Halftime</button>
+            <button className="button is-outlined is-info" onClick={() => dispatch(toggleTimeout(TIMEOUT_TYPES.GAMEEND))}>Gameend</button>
         </div>
     )
 

@@ -14,16 +14,10 @@ import {
     selectTeamInfoByTeam
 } from './teamInfoSlice';
 
-export function TeamInfo() {
-
-    const dispatch = useDispatch();
-    const teamHome = useSelector(selectTeamInfoByTeam(TEAM_HOME));
-    const teamAway = useSelector(selectTeamInfoByTeam(TEAM_HOME));
-
+export function TeamInfo({ team }) {
     return (
         <div className="team-info">
-            <Team team={TEAM_HOME} />
-            <Team team={TEAM_AWAY} />
+            <Team team={team} />
         </div>
     )
 }

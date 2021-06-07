@@ -9,6 +9,8 @@ import {
     formatSeconds
 } from '../../lib/utils';
 
+import './penalty.scss';
+
 export function Penalty(props) {
 
     const dispatch = useDispatch();
@@ -18,13 +20,9 @@ export function Penalty(props) {
     } = props;
 
     return (
-        <div className="penalty">
-            <div className="time">
-                {formatSeconds(penalty.time)}
-            </div>
-            <div className="action">
-                <button onClick={() => dispatch(removePenalty(penalty.id))}>Remove</button>
-            </div>
+        <div className="penalty tag is-danger is-large mb-2">
+            <span>{formatSeconds(penalty.time)}</span>
+            <button className="delete is-medium ml-3" onClick={() => dispatch(removePenalty(penalty.id))}>Remove</button>
         </div>
     );
 }

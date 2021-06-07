@@ -1,0 +1,9 @@
+.logs {
+    grid-column: center;
+    grid-row: logs;
+    overflow-y: auto;
+
+    .log {
+        font-family: monospace;
+    }
+}

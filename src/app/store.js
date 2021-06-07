@@ -7,6 +7,7 @@ import emptyGoalReducer from '../features/emptyGoal/emptyGoalSlice';
 import teamInfoReducer from '../features/teamInfo/teamInfoSlice';
 import gameEventReducer from '../features/gameEvent/gameEventSlice';
 import timeoutReducer from '../features/timeout/timeoutSlice';
+import logReducer from '../features/commandLog/commandLogSlice';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     emptyGoal: emptyGoalReducer,
     teams: teamInfoReducer,
     events: gameEventReducer,
-    timeout: timeoutReducer
+    timeout: timeoutReducer,
+    logs: logReducer
   },
 });

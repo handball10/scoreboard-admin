@@ -1,0 +1,15 @@
+.command-line {
+    height: 100%;
+
+    input {
+        height: 100%;
+        width: 100%;
+        border: 0;
+
+        &:focus,
+        &:active,
+        &:focus-visible {
+            border: 0;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -16,7 +16,7 @@ export function GameEvent() {
     return (
         <div className="notifications">
             <div className="home">
-                <button onClick={() => dispatch(createNotification({
+                <button className="button is-outlined mb-1 is-success" onClick={() => dispatch(createNotification({
                     type: 'goal',
                     team: 'HSG Dutenhofen/Münchholzhausen',
                     player: {
@@ -27,7 +27,7 @@ export function GameEvent() {
                 }))}>
                     Add Goal Notification  
                 </button>
-                <button onClick={() => dispatch(createNotification({
+                <button className="button is-outlined mb-1 is-primary" onClick={() => dispatch(createNotification({
                     type: 'penalty',
                     team: 'HSG Dutenhofen/Münchholzhausen',
                     player: {
@@ -38,7 +38,7 @@ export function GameEvent() {
                 }))}>
                     Add Penalty Notification  
                 </button>
-                <button onClick={() => dispatch(createNotification({
+                <button className="button is-outlined mb-1 is-warning" onClick={() => dispatch(createNotification({
                     type: 'yellowcard',
                     team: 'HSG Dutenhofen/Münchholzhausen',
                     player: {
@@ -48,7 +48,7 @@ export function GameEvent() {
                 }))}>
                     Add Yellow Card Notification  
                 </button>
-                <button onClick={() => dispatch(createNotification({
+                <button className="button is-outlined mb-1 is-danger" onClick={() => dispatch(createNotification({
                     type: 'redcard',
                     team: 'HSG Dutenhofen/Münchholzhausen',
                     player: {

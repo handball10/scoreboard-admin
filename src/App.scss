@@ -1,0 +1,27 @@
+@import 'scss/colors.scss';
+
+.App {
+    display: grid;
+    grid-template-columns: [left] 22.5% [center] auto [right] 22.5%;
+    grid-template-rows: [main] auto [logs] 150px [cmd] 100px [footer] 50px;
+    height: inherit;
+
+    .command-palette {
+        grid-column: center;
+        grid-row: cmd;
+    }
+
+    .app-footer {
+        grid-area: footer / left / 4 / 4;
+        text-align: center;
+    }
+
+    .main {
+        // background: $platinum;
+        // background: $gradient-main;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.88)
+    }
+}

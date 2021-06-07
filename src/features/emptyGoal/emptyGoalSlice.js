@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { v4 as uuidv4 } from 'uuid';
-
 import {
     TEAM_HOME,
     TEAM_AWAY
@@ -32,7 +30,7 @@ export const {
     toggleEmptyGoal,
 } = emptyGoalSlice.actions;
 
-export const selectEmptyGoalByTeam = team => state => state[ team ];
+export const selectEmptyGoalByTeam = team => state => state.emptyGoal[ team ];
 
 export default emptyGoalSlice.reducer;
 

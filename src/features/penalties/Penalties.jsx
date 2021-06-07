@@ -16,6 +16,8 @@ import {
     selectPenaltiesByTeam
 } from './penaltySlice';
 
+import './penalties.scss';
+
 export function Penalties() {
 
     const dispatch = useDispatch();
@@ -24,18 +26,22 @@ export function Penalties() {
     const penaltiesAway = useSelector(selectPenaltiesByTeam(TEAM_AWAY));
 
     return (
-        <div className="penalties">
-            <div className="home">
+        <div className="penalties columns">
+            <div className="column home">
+                <button className="button is-outlined mb-2 is-success" onClick={() => dispatch(addPenalty(TEAM_HOME))}>Add Home</button>
+                <div className="penalty-list">
                 {
                     penaltiesHome.map(penalty => (<Penalty penalty={penalty} key={penalty.id} />))
                 }
-                <button onClick={() => dispatch(addPenalty(TEAM_HOME))}>Add Home</button>
+                </div>
             </div>
-            <div className="guest">
+            <div className="column guest">
+                <button className="button is-outlined mb-2 is-success" onClick={() => dispatch(addPenalty(TEAM_AWAY))}>Add Away</button>
+                <div className="penalty-list">
                 {
                     penaltiesAway.map(penalty => (<Penalty penalty={penalty} key={penalty.id} />))
                 }
-                <button onClick={() => dispatch(addPenalty(TEAM_AWAY))}>Add Away</button>
+                </div>
             </div>
         </div>
     )

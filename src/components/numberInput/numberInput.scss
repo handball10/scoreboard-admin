@@ -1,0 +1,23 @@
+.number-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .controls {
+        display: flex;
+        flex-direction: column;
+
+        span {
+            cursor: pointer;
+
+            &:first-child {
+                margin-bottom: -5px;
+            }
+
+            &:last-child {
+                margin-top: -5px;
+            }
+        }
+    }
+}
