@@ -1,5 +1,9 @@
 @import 'scss/colors.scss';
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 .App {
     display: grid;
     grid-template-columns: [left] 22.5% [center] auto [right] 22.5%;
