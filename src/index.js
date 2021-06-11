@@ -4,6 +4,7 @@ import 'bulma';
 import './scss/bulma-dark.css';
 import './scss/react-tabs.scss';
 import './index.scss';
+import WebsocketApi from './lib/websocket';
 import App from './App.jsx';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
@@ -14,7 +15,6 @@ import {
   initHeartbeat
 } from './lib/heartbeat';
 
-import WebsocketApi from './lib/websocket';
 
 initHeartbeat();
 

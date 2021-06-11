@@ -4,7 +4,9 @@ export const TEAM_AWAY = 'away';
 export const ACTIONS = {
     HEARTBEAT: 'heartbeat',
     GAME_EVENT: 'gameEvent',
-    PARTIAL_EVENT: 'partial'
+    PARTIAL_EVENT: 'partial',
+    PING: 'ping',
+    PONG: 'pong'
 };
 
 export const LOG_TYPES = {

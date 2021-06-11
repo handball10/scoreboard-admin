@@ -36,8 +36,8 @@ export function GameData() {
                     </p>
                 </div>
             </div>
-            <footer class="card-footer">
-                <a class="card-footer-item" onClick={() => dispatch(fetchTeamInformation({ mode: dataMode, game: gameId }))}>Load</a>
+            <footer className="card-footer">
+                <a className="card-footer-item" onClick={() => dispatch(fetchTeamInformation({ mode: dataMode, game: gameId }))}>Load</a>
             </footer>
         </div>
     )

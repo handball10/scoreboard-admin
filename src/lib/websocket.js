@@ -1,9 +1,8 @@
-// import { store } from '../app/store';
+import { store } from '../app/store';
 import {
     ACTIONS
 } from '../constants/constants';
 var W3CWebSocket = require('websocket').w3cwebsocket;
-
 
 
 const UNIQUE_ID = 'admin';
@@ -24,7 +23,21 @@ client.onclose = function() {
     console.log('echo-protocol Client Closed');
 };
  
-client.onmessage = function(e) {};
+client.onmessage = function(e) {
+    if (typeof e.data === 'string') {
+        // const data = JSON.parse(e.data);
+        const { event, payload } = JSON.parse(e.data);
+
+        if (event === ACTIONS.PING) {
+
+            const { log, ...gameState } = store.getState();
+
+            websocketApi.send(
+                gameState
+            )
+        }
+    }
+};
 
 const websocketApi = {
 
@@ -35,7 +48,6 @@ const websocketApi = {
                 payload
             })
         );
-        console.log(payload);
     },
     sendPartialEvent(key, value) {
         this.send(

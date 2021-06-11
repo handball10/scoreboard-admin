@@ -7,7 +7,6 @@ export function NumberInput({ value, increase, decrease, min, max  }) {
         <div className="number-input">
             <span>{value}</span>
             <div className="controls ml-2">
-                {/* <i class="fa fa-sort-up"></i></span> */}
                 <span className="icon is-small" onClick={() => (value + 1 > max) ? void(0) : increase() }>
                     <FontAwesomeIcon icon={faSortUp} />
                 </span>
