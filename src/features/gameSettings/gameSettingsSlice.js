@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    periodDuration: 1500,
+    periodDuration: 1800,
     periodCount: 2,
     currentPeriod: 1
 };

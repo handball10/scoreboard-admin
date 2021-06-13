@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -16,13 +17,28 @@ export function TimeOut() {
 
     console.log({ timeoutState, halftimeState, gameEndState });
 
+    const timeOutClasses = classNames({
+        'button is-primary mb-1': true,
+        'is-outlined': !timeoutState.isActive
+    });
+
+    const halftimeClasses = classNames({
+        'button is-success mb-1': true,
+        'is-outlined': !halftimeState.isActive
+    });
+
+    const gameEndClasses = classNames({
+        'button is-info': true,
+        'is-outlined': !gameEndState.isActive
+    });
+
     // const timeoutButtonClasses = class
 
     return (
         <div className="timeout" style={{display: 'flex', flexDirection: 'column'}}>
-            <button className="button is-outlined is-success mb-1" onClick={() => dispatch(toggleTimeout(TIMEOUT_TYPES.TIMEOUT))}>Timeout</button>
-            <button className="button is-outlined is-primary mb-1" onClick={() => dispatch(toggleTimeout(TIMEOUT_TYPES.HALFTIME))}>Halftime</button>
-            <button className="button is-outlined is-info" onClick={() => dispatch(toggleTimeout(TIMEOUT_TYPES.GAMEEND))}>Gameend</button>
+            <button className={timeOutClasses} onClick={() => dispatch(toggleTimeout(TIMEOUT_TYPES.TIMEOUT))}>Timeout</button>
+            <button className={halftimeClasses} onClick={() => dispatch(toggleTimeout(TIMEOUT_TYPES.HALFTIME))}>Halftime</button>
+            <button className={gameEndClasses} onClick={() => dispatch(toggleTimeout(TIMEOUT_TYPES.GAMEEND))}>Gameend</button>
         </div>
     )
 
