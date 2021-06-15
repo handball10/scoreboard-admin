@@ -10,10 +10,14 @@ import { store } from './app/store';
 import { Provider } from 'react-redux';
 import CommandHandler from './lib/commandLine';
 import * as serviceWorker from './serviceWorker';
+import Modal from 'react-modal';
 
 import {
   initHeartbeat
 } from './lib/heartbeat';
+
+const rootElement = document.getElementById('root');
+Modal.setAppElement(rootElement);
 
 
 initHeartbeat();
@@ -24,7 +28,7 @@ ReactDOM.render(
       <App />
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  rootElement
 );
 
 // If you want your app to work offline and load faster, you can change

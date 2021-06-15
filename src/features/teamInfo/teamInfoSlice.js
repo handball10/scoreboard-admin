@@ -92,6 +92,19 @@ export const teamInfotSlice = createSlice({
                 console.error(e);
                 console.log(`Property ${key} or person ${person} not found!`);
             }
+        },
+        removePerson: (state, action) => {
+            const {
+                team,
+                person,
+            } = action.payload;
+
+            let personList = state[ team ][ !isNaN(person) ? 'players' : 'officials' ];
+
+            personList = personList.filter(item => item.number != person);
+
+            state[ team ][ !isNaN(person) ? 'players' : 'officials' ] = personList;
+
         }
     },
     extraReducers: {
@@ -118,7 +131,8 @@ export const {
     changeTeamLongName,
     changeTeamShortName,
     changeTeamColor,
-    changePlayerProperty
+    changePlayerProperty,
+    removePerson
 } = teamInfotSlice.actions;
 
 export {

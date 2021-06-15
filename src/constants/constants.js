@@ -33,5 +33,13 @@ export const PLAYER_PROPERTIES = {
     GOAL: 'goals',
     WARNING: 'warning',
     PENALTY: 'timePenalty',
-    DISQUALIFICATION: 'disqualification'
+    DISQUALIFICATION: 'disqualification',
+    NUMBER: 'number',
+    FIRST_NAME: 'firstName',
+    LAST_NAME: 'lastName'
+};
+
+export const PERSON_TYPES = {
+    PLAYER: 'player',
+    OFFICIAL: 'official'
 };

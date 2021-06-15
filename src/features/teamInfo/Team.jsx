@@ -10,11 +10,6 @@ import {
     selectTeamInfoByTeam
 } from './teamInfoSlice';
 
-const TEAM_LABELS = {
-    [TEAM_HOME]: 'Home',
-    [TEAM_AWAY]: 'Guest'
-}
-
 export function Team({ team }) {
 
     const teamData = useSelector(selectTeamInfoByTeam(team));

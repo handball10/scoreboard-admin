@@ -1,0 +1,15 @@
+.modal-card {
+    max-width: calc(100vw - 10%);
+    
+    &.is-large {
+        width: 75%;
+    }
+
+    &.is-medium {
+        width: 60%;
+    }
+
+    &.is-small {
+        width: 50%;
+    }
+}
