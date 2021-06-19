@@ -6,9 +6,22 @@ import { PLAYER_PROPERTIES } from '../../constants/constants';
 
 const hasInput = input => input && input.length > 0;
 
+const hasChanged = (oldValue, newValue) => oldValue != newValue;
+
 export function PersonListItem({ person, team, type }) {
 
     const dispatch = useDispatch();
+
+    function checkInputAndDispatch(oldValue, newValue, key) {
+        if (hasInput && hasChanged(oldValue, newValue)) {
+            dispatch(changePlayerProperty({
+                team,
+                person: person.number,
+                key,
+                value: newValue
+            }));
+        }
+    }
 
     return (
         <tr>
@@ -18,14 +31,7 @@ export function PersonListItem({ person, team, type }) {
                     className="input is-small" 
                     defaultValue={person.number}
                     pattern="^([a-f]{1})|([0-9]{1,3})$"
-                    // onChange={e => hasInput(e.target.value) && dispatch(changePlayerProperty(
-                    //     {
-                    //         team,
-                    //         person: person.number,
-                    //         key: PLAYER_PROPERTIES.NUMBER,
-                    //         value: e.target.value
-                    //     }
-                    // ))}
+                    onBlur={(e) => checkInputAndDispatch(person.number, e.target.value, PLAYER_PROPERTIES.NUMBER)}
                 />
             </td>
             <td>
@@ -33,14 +39,7 @@ export function PersonListItem({ person, team, type }) {
                     type="text" 
                     className="input is-small" 
                     defaultValue={person.firstName}
-                    // onChange={e => hasInput(e.target.value) && dispatch(changePlayerProperty(
-                    //     {
-                    //         team,
-                    //         person: person.number,
-                    //         key: PLAYER_PROPERTIES.FIRST_NAME,
-                    //         value: e.target.value
-                    //     }
-                    // ))}
+                    onBlur={(e) => checkInputAndDispatch(person.firstName, e.target.value, PLAYER_PROPERTIES.FIRST_NAME)}
                 />
             </td>
             <td>
@@ -48,14 +47,7 @@ export function PersonListItem({ person, team, type }) {
                     type="text" 
                     className="input is-small" 
                     defaultValue={person.lastName}
-                    // onChange={e => hasInput(e.target.value) && dispatch(changePlayerProperty(
-                    //     {
-                    //         team,
-                    //         person: person.number,
-                    //         key: PLAYER_PROPERTIES.LAST_NAME,
-                    //         value: e.target.value
-                    //     }
-                    // ))}
+                    onBlur={(e) => checkInputAndDispatch(person.lastName, e.target.value, PLAYER_PROPERTIES.LAST_NAME)}
                 />
             </td>
             <td>
