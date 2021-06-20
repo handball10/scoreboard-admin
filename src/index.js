@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import CommandHandler from './lib/commandLine';
 import * as serviceWorker from './serviceWorker';
 import Modal from 'react-modal';
+import { ToastProvider } from 'react-toast-notifications';
 
 import {
   initHeartbeat
@@ -25,7 +26,9 @@ initHeartbeat();
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ToastProvider>
+        <App />
+      </ToastProvider>
     </Provider>
   </React.StrictMode>,
   rootElement

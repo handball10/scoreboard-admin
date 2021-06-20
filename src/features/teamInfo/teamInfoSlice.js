@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 import {
     TEAM_HOME,
-    TEAM_AWAY
+    TEAM_AWAY,
+    PLAYER_PROPERTIES,
+    TEAM_INFO_PERSON_MAP,
+    PERSON_TYPES
 } from '../../constants/constants';
 
 import { fetchTeamInfo } from '../../lib/api/teamInfo';
@@ -32,6 +36,40 @@ const fetchTeamInformation = createAsyncThunk(
         return response;
     }
 )
+
+const personFactory = ({
+    number,
+    firstName,
+    lastName,
+    goals = 0,
+    penaltyGoals = 0,
+    penaltyMissed = 0,
+    timePenalty = 0,
+    warning = 0,
+    disqualification = 0,
+}, team, type) => ({
+    number,
+    firstName,
+    lastName,
+    goals,
+    penaltyGoals,
+    penaltyMissed,
+    timePenalty,
+    warning,
+    disqualification,
+    key: `${type}-${team}-${number}`
+});
+
+const playerFactory = (data, team) => personFactory(data, team, 'player');
+const officialFactory = (data, team) => personFactory(data, team, 'official');
+
+const getPersonListByTeamAndIndentifier = (state, team, number) => state[
+    team
+][
+    !isNaN(number) 
+        ? TEAM_INFO_PERSON_MAP[PERSON_TYPES.PLAYER]
+        : TEAM_INFO_PERSON_MAP[PERSON_TYPES.OFFICIAL]
+];
 
 export const teamInfotSlice = createSlice({
     name: 'teams',
@@ -84,9 +122,25 @@ export const teamInfotSlice = createSlice({
                 value
             } = action.payload;
 
+            let personData;
+
+            // check for duplicate numbers
+            if (key === PLAYER_PROPERTIES.NUMBER) {
+                personData = getPersonListByTeamAndIndentifier(state, team, person).filter(item => item.number == person || item.number == value);
+
+                console.log(personData);
+
+                if (personData.length > 1) {
+                    throw new Error(`Duplicate person for Number ${value}!`);
+                }
+            }
+
+            else {
+                personData = getPersonListByTeamAndIndentifier(state, team, person).filter(item => item.number == person)
+            }
             try {
-                const personData = state[ team ][ !isNaN(person) ? 'players' : 'officials' ].find(item => item.number == person);
-                personData[ key ] = value;
+
+                personData[0][ key ] = value;
             }
             catch (e) {
                 console.error(e);
@@ -99,12 +153,35 @@ export const teamInfotSlice = createSlice({
                 person,
             } = action.payload;
 
-            let personList = state[ team ][ !isNaN(person) ? 'players' : 'officials' ];
+            let personList = getPersonListByTeamAndIndentifier(state, team, person);
 
             personList = personList.filter(item => item.number != person);
 
-            state[ team ][ !isNaN(person) ? 'players' : 'officials' ] = personList;
+            state[ 
+                team
+            ][ 
+                !isNaN(person) 
+                    ? TEAM_INFO_PERSON_MAP[PERSON_TYPES.PLAYER]
+                    : TEAM_INFO_PERSON_MAP[PERSON_TYPES.OFFICIAL] 
+            ] = personList;
+        },
+        addPerson: (state, action) => {
+            const {
+                team,
+                person
+            } = action.payload;
 
+            let personList = getPersonListByTeamAndIndentifier(state, team, person.number);
+
+            if (personList.find(item => item.number == person.number)) {
+                throw new Error(`Person with number ${person.number} already exists!`);
+            }
+
+            personList.push(
+                isNaN(person.number)
+                    ? officialFactory(person, team)
+                    : playerFactory(person, team)
+            );
         }
     },
     extraReducers: {
@@ -132,6 +209,7 @@ export const {
     changeTeamShortName,
     changeTeamColor,
     changePlayerProperty,
+    addPerson,
     removePerson
 } = teamInfotSlice.actions;
 

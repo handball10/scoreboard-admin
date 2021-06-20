@@ -3,6 +3,7 @@ import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { changePlayerProperty, removePerson } from '../teamInfo/teamInfoSlice';
 import { PLAYER_PROPERTIES } from '../../constants/constants';
+import { useToasts } from 'react-toast-notifications';
 
 const hasInput = input => input && input.length > 0;
 
@@ -11,15 +12,21 @@ const hasChanged = (oldValue, newValue) => oldValue != newValue;
 export function PersonListItem({ person, team, type }) {
 
     const dispatch = useDispatch();
+    const { addToast } = useToasts();
 
     function checkInputAndDispatch(oldValue, newValue, key) {
         if (hasInput && hasChanged(oldValue, newValue)) {
-            dispatch(changePlayerProperty({
-                team,
-                person: person.number,
-                key,
-                value: newValue
-            }));
+            try {
+                dispatch(changePlayerProperty({
+                    team,
+                    person: person.number,
+                    key,
+                    value: newValue
+                }));
+            }
+            catch (e) {
+                addToast(e.message, { appearance: 'error', autoDismiss: true });
+            }
         }
     }
 

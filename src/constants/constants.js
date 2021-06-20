@@ -43,3 +43,8 @@ export const PERSON_TYPES = {
     PLAYER: 'player',
     OFFICIAL: 'official'
 };
+
+export const TEAM_INFO_PERSON_MAP = {
+    [ PERSON_TYPES.PLAYER ]: 'players',
+    [ PERSON_TYPES.OFFICIAL ]: 'officials'
+};

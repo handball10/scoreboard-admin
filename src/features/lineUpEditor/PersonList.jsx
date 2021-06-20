@@ -4,15 +4,38 @@ import {
     PERSON_TYPES
 } from '../../constants/constants';
 import { PersonListItem } from './PersonListItem';
+import { useDispatch } from 'react-redux';
+import {
+    addPerson
+} from '../teamInfo/teamInfoSlice';
+
+import { useToasts } from 'react-toast-notifications';
 
 export function PersonList({ team, data }) {
 
-    console.log(data);
+    const dispatch = useDispatch();
+    const { addToast } = useToasts();
 
     function submitForm(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log(new FormData(e.target).get(`number-input-${team}`));
+        const formData = new FormData(e.target)
+        
+        const person = {
+            number: formData.get(`number-input-${team}`),
+            firstName: formData.get(`firstName-input-${team}`),
+            lastName: formData.get(`lastName-input-${team}`),
+        };
+
+        try {
+            dispatch(
+                addPerson({ person, team })
+            );
+        }
+        catch (e) {
+            addToast(e.message, { appearance: 'error' });
+        }
+
         return false;
     }
 
