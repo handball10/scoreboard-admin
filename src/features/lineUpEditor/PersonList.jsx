@@ -10,16 +10,28 @@ import {
 } from '../teamInfo/teamInfoSlice';
 
 import { useToasts } from 'react-toast-notifications';
+import { useRef } from 'react';
 
 export function PersonList({ team, data }) {
 
     const dispatch = useDispatch();
     const { addToast } = useToasts();
 
+    const formRef = useRef();
+    const submitRef = useRef();
+
+    const inputRefs = {
+        number: useRef(),
+        firstName: useRef(),
+        lastName: useRef()
+    };
+
     function submitForm(e) {
         e.preventDefault();
         e.stopPropagation();
-        const formData = new FormData(e.target)
+        const formData = new FormData(e.target);
+
+        console.log('SUBMIT');
         
         const person = {
             number: formData.get(`number-input-${team}`),
@@ -31,16 +43,29 @@ export function PersonList({ team, data }) {
             dispatch(
                 addPerson({ person, team })
             );
+
         }
         catch (e) {
-            addToast(e.message, { appearance: 'error' });
+            addToast(e.message, { appearance: 'error', autoDismiss: true });
+            return false;
         }
+
+        formRef.current.reset();
+        inputRefs.number.current.focus();
 
         return false;
     }
 
+    function keyDownHandler(event) {
+        if (event.key === 'Enter') {
+            // formRef.current.dispatchEvent(new Event('submit'));
+            submitRef.current.click();
+            event.stopPropagation();
+        }
+    }
+
     return (
-        <form onSubmit={submitForm}>
+        <form onSubmit={submitForm} ref={formRef}>
             <table className="table" style={{ width: '100%' }}>
                 <thead>
                     <tr>
@@ -59,16 +84,43 @@ export function PersonList({ team, data }) {
                     }
                     <tr>
                         <td>
-                            <input type="text" autoComplete="off" className="input is-small" placeholder="Nr." name={`number-input-${team}`} />
+                            <input 
+                                type="text"
+                                autoComplete="off"
+                                ref={inputRefs.number}
+                                className="input is-small"
+                                placeholder="Nr."
+                                name={`number-input-${team}`}
+                                onKeyDown={keyDownHandler}
+                                required
+                            />
                         </td>
                         <td>
-                            <input type="text" autoComplete="off" className="input is-small" placeholder="First Name" name={`firstName-input-${team}`} />
+                            <input 
+                                type="text"
+                                autoComplete="off"
+                                ref={inputRefs.firstName}
+                                className="input is-small"
+                                placeholder="First Name"
+                                name={`firstName-input-${team}`}
+                                onKeyDown={keyDownHandler}
+                                required
+                            />
                         </td>
                         <td>
-                            <input type="text" autoComplete="off" className="input is-small" placeholder="Last Name" name={`lastName-input-${team}`} />
+                            <input 
+                                type="text"
+                                autoComplete="off"
+                                ref={inputRefs.lastName}
+                                className="input is-small"
+                                placeholder="Last Name"
+                                name={`lastName-input-${team}`}
+                                onKeyDown={keyDownHandler}
+                                equired
+                            />
                         </td>
                         <td>
-                        <button className="button is-small" type="submit">
+                        <button className="button is-small" type="submit" ref={submitRef}>
                             <span className="icon is-small">
                                 <FontAwesomeIcon icon={faPlus}  />
                             </span>

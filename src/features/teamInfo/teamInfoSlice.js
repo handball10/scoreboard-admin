@@ -9,6 +9,7 @@ import {
 } from '../../constants/constants';
 
 import { fetchTeamInfo } from '../../lib/api/teamInfo';
+import { isOfficial, isPlayer } from '../../lib/helper/personHelper';
 
 import websocketApi from '../../lib/websocket';
 
@@ -177,11 +178,16 @@ export const teamInfotSlice = createSlice({
                 throw new Error(`Person with number ${person.number} already exists!`);
             }
 
-            personList.push(
-                isNaN(person.number)
-                    ? officialFactory(person, team)
-                    : playerFactory(person, team)
-            );
+            if (isPlayer(person.number)) {
+                personList.push(playerFactory(person, team));
+            }
+            else if (isOfficial(person.number)) {
+                personList.push(officialFactory(person, team));
+            }
+            else {
+                throw new Error('This is not a valid person!');
+            }
+
         }
     },
     extraReducers: {
