@@ -31,8 +31,6 @@ export function PersonList({ team, data }) {
         e.stopPropagation();
         const formData = new FormData(e.target);
 
-        console.log('SUBMIT');
-        
         const person = {
             number: formData.get(`number-input-${team}`),
             firstName: formData.get(`firstName-input-${team}`),
@@ -58,8 +56,8 @@ export function PersonList({ team, data }) {
 
     function keyDownHandler(event) {
         if (event.key === 'Enter') {
-            // formRef.current.dispatchEvent(new Event('submit'));
             submitRef.current.click();
+            event.preventDefault();
             event.stopPropagation();
         }
     }
@@ -69,19 +67,13 @@ export function PersonList({ team, data }) {
             <table className="table" style={{ width: '100%' }}>
                 <thead>
                     <tr>
-                        <th>Nr.</th>
+                        <th style={{width: '15%'}}>Nr.</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        data.players.map(player => (<PersonListItem person={player} team={team} key={player.key} type={PERSON_TYPES.PLAYER} /> ))
-                    }
-                    {
-                        data.officials.map(official => (<PersonListItem person={official} team={team} key={official.key} type={PERSON_TYPES.OFFICIAL} /> ))
-                    }
                     <tr>
                         <td>
                             <input 
@@ -116,7 +108,7 @@ export function PersonList({ team, data }) {
                                 placeholder="Last Name"
                                 name={`lastName-input-${team}`}
                                 onKeyDown={keyDownHandler}
-                                equired
+                                required
                             />
                         </td>
                         <td>
@@ -127,6 +119,12 @@ export function PersonList({ team, data }) {
                         </button>
                         </td>
                     </tr>
+                    {
+                        data.players.map(player => (<PersonListItem person={player} team={team} key={player.key} type={PERSON_TYPES.PLAYER} /> ))
+                    }
+                    {
+                        data.officials.map(official => (<PersonListItem person={official} team={team} key={official.key} type={PERSON_TYPES.OFFICIAL} /> ))
+                    }
                 </tbody>
             </table>
         </form>

@@ -58,7 +58,7 @@ export function PersonListItem({ person, team, type }) {
                 />
             </td>
             <td>
-                <button className="button is-small" onClick={() => dispatch(removePerson({ person: person.number, team }))}>
+                <button className="button is-small" onKeyDown={(e) => console.log(e)} onClick={(e) => dispatch(removePerson({ person: person.number, team })) && console.log(e)}>
                     <span className="icon is-small">
                         <FontAwesomeIcon icon={faTrashAlt}  />
                     </span>

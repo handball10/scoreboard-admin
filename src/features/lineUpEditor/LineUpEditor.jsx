@@ -6,7 +6,7 @@ import './lineUpEditor.scss';
 import { TeamEditor } from "./teamEditor";
 
 export function LineUpEditor() {
-    const [ isModalVisible, setModalVisibility ] = useState(true);
+    const [ isModalVisible, setModalVisibility ] = useState(false);
 
     const modalClasses = classNames({
         'modal': true,
@@ -18,11 +18,21 @@ export function LineUpEditor() {
             background: 'rgba(10,10,10,.86)',
             zIndex: 100
         }
-    }
+    };
 
     return (
         <>
-            <button className="button" onClick={() => setModalVisibility(true)}>Open</button>
+            <div className="card team-settings">
+                <div className="card-header">
+                    <p className="card-header-title is-size-6 has-text-centered">Team lineup</p>
+                </div>
+                <div className="card-content">
+                    
+                </div>
+                <footer className="card-footer">
+                    <a className="card-footer-item" onClick={() => setModalVisibility(true)}>Manual Input</a>
+                </footer>
+            </div>
             <Modal
                 isOpen={isModalVisible}
                 onRequestClose={() => setModalVisibility(false)}
@@ -32,7 +42,7 @@ export function LineUpEditor() {
             >
                 <div className="modal-card is-medium">
                     <header className="modal-card-head">
-                        <p className="modal-card-title">Team LineUp</p>
+                        <p className="modal-card-title">Team lineup</p>
                         <button className="delete" onClick={() => setModalVisibility(false)}></button>
                     </header>
                     <section className="modal-card-body">

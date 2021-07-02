@@ -149,6 +149,9 @@ export const teamInfotSlice = createSlice({
             }
         },
         removePerson: (state, action) => {
+
+            console.log('remove Person');
+
             const {
                 team,
                 person,

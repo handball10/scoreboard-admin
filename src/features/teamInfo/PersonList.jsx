@@ -29,7 +29,7 @@ export function PersonList({ players, officials, team }) {
                     </thead>
                     <tbody>
                         {
-                            players.map(player => (<Player player={player} team={team} key={player.key} /> ))
+                            [ ...players ].sort((a, b) => a.number - b.number).map(player => (<Player player={player} team={team} key={player.key} /> ))
                         }
                         <tr><td colSpan="6"></td></tr>
                         {
