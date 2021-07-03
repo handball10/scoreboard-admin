@@ -16,6 +16,7 @@ import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import { GamePanel } from './components/gamePanel/GamePanel';
 import { TeamSettings } from './features/gameSettings/GameData';
 import { GameSettings } from './features/gameSettings/GameSettings';
+import { Advertising } from './features/advertising/Advertising';
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
             <GameSettings />
           </TabPanel>
           <TabPanel>
-            <div>Advertising</div>
+            <Advertising />
           </TabPanel>
         </Tabs>
       </div>

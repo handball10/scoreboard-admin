@@ -56,8 +56,7 @@ export function LineUpEditor() {
                         </div>
                     </section>
                     <footer className="modal-card-foot">
-                        <a className="button is-primary">Save changes</a>
-                        <a className="button" onClick={() => setModalVisibility(false)}>Cancel</a>
+                        <a className="button is-primary" onClick={() => setModalVisibility(false)}>Close</a>
                     </footer>
                 </div>
             </Modal>

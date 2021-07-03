@@ -1,5 +1,6 @@
 import { Player } from "./Player";
 import { Official } from "./Official";
+import { officialSort, playerSort } from "../../lib/helper/personHelper";
 
 export function PersonList({ players, officials, team }) {
     return (
@@ -29,11 +30,11 @@ export function PersonList({ players, officials, team }) {
                     </thead>
                     <tbody>
                         {
-                            [ ...players ].sort((a, b) => a.number - b.number).map(player => (<Player player={player} team={team} key={player.key} /> ))
+                            [ ...players ].sort(playerSort).map(player => (<Player player={player} team={team} key={player.key} /> ))
                         }
                         <tr><td colSpan="6"></td></tr>
                         {
-                            officials.map(official => (<Official official={official} team={team} key={official.key} /> ))
+                            [ ...officials ].sort(officialSort).map(official => (<Official official={official} team={team} key={official.key} /> ))
                         }
                     </tbody>
                 </table>

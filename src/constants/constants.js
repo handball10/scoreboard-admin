@@ -1,6 +1,11 @@
 export const TEAM_HOME = 'home';
 export const TEAM_AWAY = 'away';
 
+export const TEAM_LABELS = {
+    [TEAM_HOME]: 'Home',
+    [TEAM_AWAY]: 'Guest'
+}
+
 export const ACTIONS = {
     HEARTBEAT: 'heartbeat',
     GAME_EVENT: 'gameEvent',

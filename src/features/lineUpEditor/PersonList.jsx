@@ -11,6 +11,7 @@ import {
 
 import { useToasts } from 'react-toast-notifications';
 import { useRef } from 'react';
+import { officialSort, playerSort } from '../../lib/helper/personHelper';
 
 export function PersonList({ team, data }) {
 
@@ -120,10 +121,10 @@ export function PersonList({ team, data }) {
                         </td>
                     </tr>
                     {
-                        data.players.map(player => (<PersonListItem person={player} team={team} key={player.key} type={PERSON_TYPES.PLAYER} /> ))
+                        [ ...data.players ].sort(playerSort).map(player => (<PersonListItem person={player} team={team} key={player.key} type={PERSON_TYPES.PLAYER} /> ))
                     }
                     {
-                        data.officials.map(official => (<PersonListItem person={official} team={team} key={official.key} type={PERSON_TYPES.OFFICIAL} /> ))
+                        [ ...data.officials ].sort(officialSort).map(official => (<PersonListItem person={official} team={team} key={official.key} type={PERSON_TYPES.OFFICIAL} /> ))
                     }
                 </tbody>
             </table>

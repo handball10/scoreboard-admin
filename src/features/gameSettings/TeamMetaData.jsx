@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { TEAM_AWAY, TEAM_HOME } from '../../constants/constants';
+import { TEAM_AWAY, TEAM_HOME, TEAM_LABELS } from '../../constants/constants';
 
 import {
     changeTeamLongName,
@@ -7,11 +7,6 @@ import {
     changeTeamColor,
     selectTeamInfoByTeam
 } from '../teamInfo/teamInfoSlice';
-
-const TEAM_LABELS = {
-    [TEAM_HOME]: 'Home',
-    [TEAM_AWAY]: 'Guest'
-}
 
 export function TeamMetaData({ team }) {
 
