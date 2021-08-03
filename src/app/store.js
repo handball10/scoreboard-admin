@@ -9,6 +9,7 @@ import gameEventReducer from '../features/gameEvent/gameEventSlice';
 import timeoutReducer from '../features/timeout/timeoutSlice';
 import logReducer from '../features/commandLog/commandLogSlice';
 import gameSettingsReducer from '../features/gameSettings/gameSettingsSlice';
+import advertisingReducer from '../features/advertising/advertisingSlice';
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     events: gameEventReducer,
     timeout: timeoutReducer,
     logs: logReducer,
-    gameSettings: gameSettingsReducer
+    gameSettings: gameSettingsReducer,
+    advertising: advertisingReducer
   },
 });

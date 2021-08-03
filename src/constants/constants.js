@@ -53,3 +53,21 @@ export const TEAM_INFO_PERSON_MAP = {
     [ PERSON_TYPES.PLAYER ]: 'players',
     [ PERSON_TYPES.OFFICIAL ]: 'officials'
 };
+
+export const ADVERTISING_MODES = {
+    FULL_SIZE: 'fullSize',
+    BOTTOM: 'bottom',
+    NONE: 'none'
+};
+
+export const ADVERTISING_MODES_LABELS = {
+    [ADVERTISING_MODES.FULL_SIZE]: 'Full',
+    [ADVERTISING_MODES.BOTTOM]: 'Bottom',
+};
+
+export const ADVERTISING_ITEM_TYPES = {
+    VIDEO: 'video',
+    YOUTUBE: 'youtube',
+    IMAGE: 'image',
+    STATS: 'stats'
+};
