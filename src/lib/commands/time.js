@@ -4,27 +4,31 @@ import { store } from '../../app/store';
 import {
     isTimeStartModifier,
     isTimeStopModifier,
+    isTimeSetModifier,
     parseInputByRegex
 } from '../commandLineHelper';
 
 import {
+    setTime,
     start,
     stop
 } from '../../features/time/timeSlice';
 import { LOG_TYPES } from "../../constants/constants";
+import { parseTimeFromString } from "../utils";
 
 export default class TimeCommand extends AbstractCommand {
 
     static command = 't';
 
-    parserRegex = /(?<command>\W?[sp])/;
+    parserRegex = /(?<command>\W?[spt])(?<time>\W?([0-9]{2}\:[0-9]{2}))?/;
 
     constructor() {
         super();
     }
 
     process(fragments) {
-        const { command } = parseInputByRegex(this.parserRegex, fragments);
+
+        const { command, time } = parseInputByRegex(this.parserRegex, fragments);
 
         if (isTimeStartModifier(command)) {
             store.dispatch(start());
@@ -39,6 +43,14 @@ export default class TimeCommand extends AbstractCommand {
             this.log({
                 message: 'Time stopped!'
             });
+            return;
+        }
+
+        if (isTimeSetModifier(command)) {
+
+            store.dispatch(setTime(
+                parseTimeFromString(time)
+            ))
             return;
         }
 

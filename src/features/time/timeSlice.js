@@ -16,8 +16,8 @@ export const timeSlice = createSlice({
     reducers: {
         increase: state => { state.gameTime += 1; },
         decrease: state => { state.gameTime -= 1; },
-        setTime: (state, action) => state.gameTime = action.payload,
-        reset: state => state = initialState,
+        setTime: (state, action) => { state.gameTime = action.payload },
+        reset: state => { state = initialState },
         start: state => { state.status = STATUS.RUNNING;  },
         stop: state => { state.status = STATUS.STOPPED; },
     }

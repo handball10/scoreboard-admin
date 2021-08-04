@@ -6,6 +6,7 @@ const TEAM_MODIFIER_HOME = 'h';
 const TEAM_MODIFIER_AWAY = 'g';
 const TIME_START_MODIFIER = 's';
 const TIME_STOP_MODIFIER = 'p';
+const TIME_SET_MODIFIER = 't';
 
 const TEAM_MODIFIER_MAP = {
     [ TEAM_MODIFIER_HOME ]: TEAM_HOME,
@@ -45,6 +46,7 @@ export const getNumberValue = input => parseInt(input);
 
 export const isTimeStartModifier = input => input === TIME_START_MODIFIER;
 export const isTimeStopModifier = input => input === TIME_STOP_MODIFIER;
+export const isTimeSetModifier = input => input === TIME_SET_MODIFIER;
 
 // just check length as regex filters characters
 export const isOfficialPrefix = input => input && input.length === 1;

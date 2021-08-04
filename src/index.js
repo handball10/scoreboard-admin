@@ -12,6 +12,8 @@ import CommandHandler from './lib/commandLine';
 import * as serviceWorker from './serviceWorker';
 import Modal from 'react-modal';
 import { ToastProvider } from 'react-toast-notifications';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import {
   initHeartbeat
@@ -27,7 +29,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastProvider>
-        <App />
+        <DndProvider backend={HTML5Backend}>
+          <App />
+        </DndProvider>
       </ToastProvider>
     </Provider>
   </React.StrictMode>,
