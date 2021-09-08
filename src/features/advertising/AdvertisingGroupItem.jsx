@@ -1,19 +1,31 @@
 import { ADVERTISING_ITEM_TYPES } from "../../constants/constants";
 
-import { faTable, faVideo, faFilm } from '@fortawesome/free-solid-svg-icons';
+import { faTable, faVideo, faFilm, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import { useDrag, useDrop } from 'react-dnd';
 import { useRef } from 'react';
+import { useDispatch } from "react-redux";
+
+import {
+    removeItems
+} from './advertisingSlice';
 
 const ItemTypes = {
     ITEM: 'item'
 };
 
-export function AdvertisingGroupItem({ id, item, text, index, moveCard }) {
+const styles = {
+    cursor: 'move',
+    userSelect: 'none'
+};
+
+export function AdvertisingGroupItem({ id, item, text, index, moveCard, module }) {
 
     let advertisingContentItem;
     const ref = useRef(null);
+
+    const dispatch = useDispatch();
 
     const [{ handlerId }, drop] = useDrop({
         accept: ItemTypes.ITEM,
@@ -76,7 +88,7 @@ export function AdvertisingGroupItem({ id, item, text, index, moveCard }) {
 
     switch (item.type) {
         case ADVERTISING_ITEM_TYPES.IMAGE: {
-            advertisingContentItem = (<img src={item.src} />); break;
+            advertisingContentItem = (<img src={item.src} draggable={false} />); break;
         }
         case ADVERTISING_ITEM_TYPES.STATS: {
             advertisingContentItem = (
@@ -110,8 +122,14 @@ export function AdvertisingGroupItem({ id, item, text, index, moveCard }) {
     });
 
     return (
-        <div className={classes} ref={ref} style={{ opacity }} data-handler-id={handlerId}>
+        <div className={classes} ref={ref} style={{ ...styles, opacity }} data-handler-id={handlerId}>
             {advertisingContentItem}
+            <div className="label">
+                {item.name}
+            </div>
+            <div className="remove">
+                <FontAwesomeIcon icon={faTrashAlt} style={{ cursor: 'pointer' }} title="Remove" size="xs" onClick={() => dispatch(removeItems({ items: [id], moduleId: module }))}  />
+            </div>
         </div>
     )
 }

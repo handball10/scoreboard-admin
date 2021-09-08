@@ -191,6 +191,9 @@ export const teamInfotSlice = createSlice({
                 throw new Error('This is not a valid person!');
             }
 
+        },
+        reset: (state, action) => {
+            Object.assign(state, initialState);
         }
     },
     extraReducers: {
@@ -219,7 +222,8 @@ export const {
     changeTeamColor,
     changePlayerProperty,
     addPerson,
-    removePerson
+    removePerson,
+    reset
 } = teamInfotSlice.actions;
 
 export {

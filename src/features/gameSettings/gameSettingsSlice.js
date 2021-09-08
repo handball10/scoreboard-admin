@@ -23,6 +23,9 @@ export const gameSettingsSlice = createSlice({
             if (state.currentPeriod + 1 <= state.periodCount) {
                 state.currentPeriod++;
             }
+        },
+        reset: (state, action) => {
+            Object.assign(state, initialState);
         }
     }
 });
@@ -31,7 +34,8 @@ export const {
     setPeriodDuration,
     setPeriodCount,
     setCurrentPeriod,
-    increaseCurrentPeriod
+    increaseCurrentPeriod,
+    reset
 } = gameSettingsSlice.actions;
 
 export const selectPeriodDuration = state => state.gameSettings.periodDuration;

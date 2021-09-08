@@ -35,7 +35,7 @@ export const goalSlice = createSlice({
             );
         },
         reset: state => { 
-            state = initialState;
+            Object.assign(state, initialState);
             
             websocketApi.sendPartialEvent(
                 'goals',

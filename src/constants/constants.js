@@ -10,6 +10,7 @@ export const ACTIONS = {
     HEARTBEAT: 'heartbeat',
     GAME_EVENT: 'gameEvent',
     PARTIAL_EVENT: 'partial',
+    ADVERTISING: 'advertising',
     PING: 'ping',
     PONG: 'pong'
 };

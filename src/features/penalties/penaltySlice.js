@@ -47,6 +47,14 @@ export const penaltiesSlice = createSlice({
                 { ...state }
             );
         },
+        reset: (state, action) => {
+            Object.assign(state, initialState);
+
+            websocketApi.sendPartialEvent(
+                'penalties',
+                { ...state }
+            );
+        },
         increaseAll: state => {
             state.items = state.items
                 // decrease time by 1
@@ -67,7 +75,8 @@ export const {
     addPenalty,
     removePenalty,
     clear,
-    increaseAll
+    increaseAll,
+    reset
 } = penaltiesSlice.actions;
 
 export const selectPenaltiesByTeam = targetTeam => state => state.penalties.items.filter(({ team }) => team === targetTeam);

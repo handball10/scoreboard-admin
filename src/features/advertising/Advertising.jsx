@@ -7,6 +7,7 @@ import { AdvertisingGroup } from "./AdvertisingGroup";
 import Modal from 'react-modal';
 
 import {
+    addItems,
     addModule,
     selectAdvertisingData,
     setModuleDataFromFile
@@ -18,11 +19,13 @@ import classNames from "classnames";
 const processFiles = (files = []) => {
     return files.map(file => ({
         file,
-        path: file.path,
+        src: file.path,
         name: file.name,
         preview: URL.createObjectURL(file)
     }));
 }
+
+
 
 const processAdvertisingFile = async (files = []) => {
 
@@ -46,7 +49,49 @@ const processAdvertisingFile = async (files = []) => {
     reader.readAsText(files[0]);
 
     return readerPromise;
+}
 
+
+const processMediaInputFiles = (files = []) => {
+    return [...files].map(file => ({
+        // file,
+        src: file.path,
+        name: file.name,
+        type: file.type,
+        // preview: URL.createObjectURL(file)
+    }));
+    // return await Promise.all(
+    //     [...files].map(file => {
+    //         const reader = new FileReader();
+    //         console.log(file);
+    //         let promiseHandlers;
+    //         const readerPromise = new Promise((resolve, reject) => promiseHandlers = { resolve, reject });
+
+    //         reader.onload = (fileEvent) => {
+
+    //             if ()
+
+    //             // console.log(file.name);
+    //             // console.log(file.path);
+
+    //             try {
+    //                 console.log(fileEvent);
+    //                 promiseHandlers.resolve({
+
+    //                 });
+    //             }
+    //             catch (error) {
+    //                 console.log(error);
+    //                 promiseHandlers.reject();
+    //             }
+
+    //         };
+
+    //         reader.readAsDataURL(file);
+
+    //         return readerPromise;
+    //     })
+    // )
 }
 
 export function Advertising(props) {
@@ -55,10 +100,12 @@ export function Advertising(props) {
     const [ isSaveButtonVisible, setSaveButtonVisibility ] = useState(false);
     const [ modalSize, setModalSize ] = useState('x-small');
     const [ modalMode, setModalMode ] = useState('module');
-    const [ newModuleName, setNewModuleName ] = useState('');
-    const [ newModuleType, setNewModuleType ] = useState('Full');
+    // const [ newModuleName, setNewModuleName ] = useState('');
+    // const [ newModuleType, setNewModuleType ] = useState('Full');
 
     const moduleFormRef = useRef(null);
+    const inputNameRef = useRef(null);
+    const inputTypeRef = useRef(null);
 
     const modalClasses = classNames({
         'modal': true,
@@ -96,18 +143,30 @@ export function Advertising(props) {
     const handleAddModuleClick = () => {
         setModalVisibility(true);
         setSaveButtonVisibility(true);
-        setModalVisibility('x-small');
+        setModalSize('x-small');
+    }
+
+    const handleAddFiles = (event, groupId) => {
+
+        const items = processMediaInputFiles(event.target.files)
+
+        dispatch(
+            addItems({
+                items,
+                moduleId: groupId
+            })
+        );
     }
 
     const saveModule = () => {
 
         dispatch(addModule({
-            name: newModuleName,
-            type: newModuleType
+            name: inputNameRef.current.value,
+            type: inputTypeRef.current.value
         }));
 
-        setNewModuleType('');
-        setNewModuleName('');
+        // setNewModuleType('');
+        // setNewModuleName('');
         setModalVisibility(false);
     }
 
@@ -134,7 +193,7 @@ export function Advertising(props) {
 
                 {
                     modules.map(item => (
-                        <AdvertisingGroup group={item} key={item.id} />
+                        <AdvertisingGroup group={item} key={item.id} addFiles={handleAddFiles} />
                     ))
                 }
 
@@ -182,14 +241,14 @@ export function Advertising(props) {
                                     <div className="field">
                                         <label className="label is-small">Name</label>
                                         <p className="control">
-                                            <input type="text" className="input is-small" value={newModuleName} onChange={e => setNewModuleName(e.target.value)}/>
+                                            <input type="text" ref={inputNameRef} className="input is-small" />
                                         </p>
                                     </div>
                                     <div className="field">
                                         <label className="label is-small">Type</label>
                                         <p className="control">
                                             <span className="select is-small">
-                                                <select onChange={e => setNewModuleType(e.target.value)} value={newModuleType}>
+                                                <select ref={inputTypeRef}>
                                                     <option value="bottom">Bottom</option>
                                                     <option value="fullSize">Full Size</option>
                                                 </select>

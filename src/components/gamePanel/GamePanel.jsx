@@ -1,3 +1,4 @@
+import { AdvertisingController } from "../../features/advertising/AdvertisingController";
 import { EmptyGoal } from "../../features/emptyGoal/EmptyGoal";
 import { GameEvent } from "../../features/gameEvent/GameEvent";
 import { Goal } from "../../features/goal/Goal";
@@ -18,9 +19,9 @@ export function GamePanel() {
                 <ControlSection headline="Empty Goal">
                     <EmptyGoal />
                 </ControlSection>
-                {/* <ControlSection headline="Notifications">
-                    <GameEvent />
-                </ControlSection> */}
+                <ControlSection headline="Advertising">
+                    <AdvertisingController />
+                </ControlSection>
                 <ControlSection headline="Game State">
                     <TimeOut />
                 </ControlSection>

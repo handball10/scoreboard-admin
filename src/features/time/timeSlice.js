@@ -17,7 +17,7 @@ export const timeSlice = createSlice({
         increase: state => { state.gameTime += 1; },
         decrease: state => { state.gameTime -= 1; },
         setTime: (state, action) => { state.gameTime = action.payload },
-        reset: state => { state = initialState },
+        reset: state => { Object.assign(state, initialState); },
         start: state => { state.status = STATUS.RUNNING;  },
         stop: state => { state.status = STATUS.STOPPED; },
     }

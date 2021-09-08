@@ -57,6 +57,15 @@ const websocketApi = {
             },
             ACTIONS.PARTIAL_EVENT
         )
+    },
+    sendAdvertisingEvent(mode, items) {
+        this.send(
+            {
+                mode,
+                items
+            },
+            ACTIONS.ADVERTISING
+        )
     }
 };
 
