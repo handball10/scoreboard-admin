@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import websocketApi from '../../lib/websocket';
 
 const initialState = {
     periodDuration: 1800,
     periodCount: 2,
-    currentPeriod: 1
+    currentPeriod: 1,
+    theme: 'dhb'
 };
 
 export const gameSettingsSlice = createSlice({
@@ -24,6 +26,14 @@ export const gameSettingsSlice = createSlice({
                 state.currentPeriod++;
             }
         },
+        setTheme: (state, action) => {
+            state.theme = action.payload;
+
+            websocketApi.sendPartialEvent(
+                'theme',
+                { theme: state.theme }
+            );
+        },
         reset: (state, action) => {
             Object.assign(state, initialState);
         }
@@ -35,11 +45,13 @@ export const {
     setPeriodCount,
     setCurrentPeriod,
     increaseCurrentPeriod,
-    reset
+    reset,
+    setTheme
 } = gameSettingsSlice.actions;
 
 export const selectPeriodDuration = state => state.gameSettings.periodDuration;
 export const selectPeriodCount = state => state.gameSettings.periodCount;
 export const selectCurrentPeriod = state => state.gameSettings.currentPeriod;
+export const selectTheme = state => state.gameSettings.theme;
 
 export default gameSettingsSlice.reducer;
